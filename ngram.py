@@ -3,6 +3,8 @@ import os
 import sys
 import operator
 
+PUNCTUATION_LIST = u'!"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~＂＃＄％＆＇（）＊＋，－／：；＜＝＞＠［＼］＾＿｀｛｜｝～｟｠｢｣､　、〃〈〉《》「」『』【】〔〕〖〗〘〙〚〛〜〝〞〟〰〾〿–—‘’‛“”„‟…‧﹏﹑﹔·！？｡。';
+
 def split_file(file_path, output_dir, piece_gega_bytes=5):
     piece_bytes = piece_gega_bytes * 1000000000
     print '[START] split file...'
@@ -27,7 +29,7 @@ def not_filter(tu):
     return True
 
 def default_filter(tu):
-    filter_characters = set(u'的是个就有一也这在把是呢吗了要着还></#&()\',+-*!@$%^?，。、“”《》…？！（）：＂×．—－─')
+    filter_characters = set(u'的是个就有一也这在把是呢吗了要着还' + PUNCTUATION_LIST)
     filter_word = set([u'那么',u'我们', u'可以', u'所以', u'这样', u'这个', u'另外', u'一个'])
     filter_characters |= filter_word
     segs = [c.decode('utf-8') for c in tu[0].split(' ')]
@@ -36,7 +38,7 @@ def default_filter(tu):
     return True
 
 def punctuation_filter(tu):
-    filter_characters = set(u'></#&()\',+-*!@$%^?，。、“”《》…？！（）：＂×．—－─')
+    filter_characters = set(PUNCTUATION_LIST)
     filter_word = set([])
     filter_characters |= filter_word
     segs = [c.decode('utf-8') for c in tu[0].split(' ')]
