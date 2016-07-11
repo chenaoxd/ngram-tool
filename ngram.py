@@ -7,12 +7,12 @@ PUNCTUATION_LIST = u'!"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~＂＃＄％＆＇（）�
 
 def split_file(file_path, output_dir, piece_gega_bytes=5):
     piece_bytes = piece_gega_bytes * 1000000000
-    print '[START] split file...'
+    print('[START] split file...')
     if not output_dir.endswith('/'):
         output_dir += '/'
 
     if not output_dir.startswith('/tmp/'):
-        print 'ERROR: output_dir must in /tmp/ directory'
+        print('ERROR: output_dir must in /tmp/ directory')
         return
 
     if os.path.exists(output_dir):
@@ -23,7 +23,7 @@ def split_file(file_path, output_dir, piece_gega_bytes=5):
     os.system('mkdir ' + output_dir[:-1] + '_ngram/')
 
     os.system('split -b ' + str(int(piece_bytes)) + ' ' + file_path + ' ' + output_dir)
-    print '[END] split file...'
+    print('[END] split file...')
 
 def not_filter(tu):
     return True
@@ -63,7 +63,7 @@ def get_ngram(gram_num, file_path, output_path, filter_num=0):
                 ngram_dict[ngram] += 1
 
             if counter % 100000 == 0:
-                print counter
+                print(counter)
             counter += 1
 
     counter = 0
@@ -73,7 +73,7 @@ def get_ngram(gram_num, file_path, output_path, filter_num=0):
         ngram_file.write(key + '\t' + str(value) + '\n')
 
         if counter % 10000 == 0:
-            print counter
+            print(counter)
         counter += 1
 
     ngram_file.close()
@@ -93,7 +93,7 @@ def merge_ngram_file(ngram_file_list, output_path, sort=False, filter_function=n
                 try:
                     ngram_dict[segs[0]] += int(segs[1])
                 except:
-                    print line
+                    print(line)
 
     with open(output_path, 'w') as output_file:
         if not sort:
